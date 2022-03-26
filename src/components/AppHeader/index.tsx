@@ -4,14 +4,18 @@ import Icon, {HarmonyIcon, HorizonIcon} from "../Icon";
 import {useStores} from "../../use-stores";
 import {Box, Button, DropButton} from "grommet";
 import {observer} from "mobx-react";
+import {breakpoints} from "../../utils";
+import {useMediaQuery} from "react-responsive";
 
 const AccountButton = observer(() => {
     const { walletStore } = useStores()
+    const { lastUsedAddress } = walletStore
     const onDisconnectClicked = () => {
         walletStore.disconnectWallet()
     }
+    const address = `${lastUsedAddress.substr(0, 8)}...`
     return <DropButton
-      label={walletStore.lastUsedAddress}
+      label={address}
       dropAlign={{ top: 'bottom', right: 'right' }}
       dropContent={
           <Box pad="large" background="light-2">
@@ -23,6 +27,7 @@ const AccountButton = observer(() => {
 
 const AppHeader = observer(() => {
     const { configStore, walletStore } = useStores()
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 960px)' })
 
     const toggleTheme = () => {
         configStore.setThemeMode(configStore.themeMode === 'dark' ? 'light' : 'dark')
@@ -41,14 +46,14 @@ const AppHeader = observer(() => {
         <Box
           direction={'row'}
           gap={'16px'}
-          pad={'0 24px 0 24px'}
+          // pad={'0 24px 0 24px'}
           align='center'
           justify='between'
-          width={{ width: '100%', max: '1378px' }}
+          width={{ width: '100%', max: breakpoints.desktop }}
         >
             <Box direction={'row'} gap={'28px'}>
                 <HarmonyIcon width={'30px'} />
-                <HorizonIcon />
+                {!isTabletOrMobile && <HorizonIcon />}
             </Box>
             <Box direction={'row'} gap={'32px'}>
                 <Icon src={darkModeIcon} onClick={toggleTheme} />

@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import Onboard from 'harmony-jenya-bnc-onboard'
-import {WalletInitOptions} from 'harmony-jenya-bnc-onboard/dist/src/interfaces'
 
 const networkId = 1666600000
 
@@ -9,7 +8,9 @@ export enum WALLETS {
   ONEWALLET = 'onewallet'
 }
 
-const LAST_USED_PROVIDER_KEY = 'LAST_USED_PROVIDER'
+enum LSKeys {
+  lastUsedProvider = 'lastUsedProvider'
+}
 
 const wallets = [
   {walletName: WALLETS.METAMASK, preferred: true},
@@ -39,6 +40,10 @@ export class WalletStore {
     this.providerName = name
   }
 
+  setLastUsedAddress (address: string) {
+    this.lastUsedAddress = address
+  }
+
   connectWallet = async () => {
     const walletSelected = await this.onboard.walletSelect()
     if (walletSelected) {
@@ -48,6 +53,7 @@ export class WalletStore {
 
   disconnectWallet () {
     this.onboard.walletReset()
+    this.saveToStorage(LSKeys.lastUsedProvider, '')
   }
 
   transactionDataCheck () {
@@ -67,15 +73,16 @@ export class WalletStore {
           if (wallet.provider) {
             this.setWeb3(wallet.provider)
             this.setProviderName(wallet.name as string)
+            this.saveToStorage(LSKeys.lastUsedProvider, wallet.name as string)
           }
         },
         address: (address) => {
           if (!this.lastUsedAddress && address) {
-            this.lastUsedAddress = address
+            this.setLastUsedAddress(address)
             // store.dispatch(fetchProvider(providerName))
           }
           if (!address && this.lastUsedAddress) {
-            this.lastUsedAddress = ''
+            this.setLastUsedAddress('')
             this.setProviderName('')
             // store.dispatch(removeProvider())
           }
@@ -96,5 +103,28 @@ export class WalletStore {
     })
 
     this.setOnboard(onboard)
+    this.tryToConnectToLastUsedProvider()
+  }
+
+  tryToConnectToLastUsedProvider = async () => {
+    const lastUsedProvider = this.getLastUsedProvider()
+    if (lastUsedProvider) {
+      const hasSelectedWallet = await this.onboard.walletSelect(lastUsedProvider)
+      if (hasSelectedWallet) {
+        await this.onboard.walletCheck()
+      }
+    }
+  }
+
+  getLastUsedProvider () {
+    return this.getStorageItem(LSKeys.lastUsedProvider)
+  }
+
+  saveToStorage (key: string, value: string) {
+    window.localStorage.setItem(key, value)
+  }
+
+  getStorageItem (key: string) {
+    return window.localStorage.getItem(key)
   }
 }
