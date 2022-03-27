@@ -5,22 +5,49 @@ import styled from "styled-components";
 import {SwitchIcon} from "../../components/Icon";
 import {Token} from "../../types";
 import { TokenItem } from './TokenItem';
+import {TokenSelect, TokensSelectModal} from "./TokenSelect";
 
 const Container = styled(Box)`
   border-radius: 25px 25px 0 0;
 `
 
+const ButtonsContainer = styled(Box)`
+  width: 100%;
+`
+
+const ButtonWrapper = styled(Box)`
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+`
+
+const LeftButton = styled(ButtonWrapper)`
+  border-radius:  0 0 0 25px;
+`
+
+const RightButton = styled(ButtonWrapper)`
+  border-radius:  0 0 25px 0;
+`
+
 export const BridgePage = observer(() => {
   const [from, setFrom] = useState(Token.ETH)
   const [to, setTo] = useState(Token.ONE)
+  const [tokensType, setTokensType] = useState([Token.ONE, Token.ETH])
+  const [tokensSelectOpened, setTokensSelectOpened] = useState(false)
 
   const onTokensSwitchClicked = () => {
     setFrom(to)
     setTo(from)
   }
 
-  return <Box direction={'row'} align={'center'}>
-    <Container width={'570px'} background={'modalBackground'} pad={'32px 0'}>
+  const onResetBridgeClick = () => {
+    setFrom(Token.ETH)
+    setTo(Token.ONE)
+    setTokensType([Token.ONE, Token.ETH])
+  }
+
+  return <Box direction={'column'} align={'center'}>
+    <Container width={'570px'} background={'modalBackground'} pad={'32px 0 0'}>
       <Box
         direction={'row'}
         justify={'between'}
@@ -42,6 +69,22 @@ export const BridgePage = observer(() => {
         direction={'row'}
         justify={'center'}
         align={'center'}
+        pad={{ top: '40px', bottom: '36px' }}
+        border={{ side: 'bottom', color: 'border', size: '1px' }}
+      >
+        <TokenSelect selectedOptions={tokensType} onClick={() => setTokensSelectOpened(!tokensSelectOpened)} />
+        {tokensSelectOpened &&
+          <TokensSelectModal
+              selectedOptions={tokensType}
+              onSelectOption={(types) => setTokensType(types)}
+              onClose={() => setTokensSelectOpened(false)}
+          />
+        }
+      </Box>
+      <Box
+        direction={'row'}
+        justify={'center'}
+        align={'center'}
         pad={{ bottom: '36px' }}
         border={{ side: 'bottom', color: 'border', size: '1px' }}
       >
@@ -52,5 +95,9 @@ export const BridgePage = observer(() => {
         </Box>
       </Box>
     </Container>
+    <ButtonsContainer direction={'row'} height={'66px'}>
+      <LeftButton background={'#767676'} onClick={onResetBridgeClick}>Reset Bridge</LeftButton>
+      <RightButton background={'#1F5AE2'}>Continue</RightButton>
+    </ButtonsContainer>
   </Box>
 })

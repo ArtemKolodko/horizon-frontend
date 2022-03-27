@@ -9,7 +9,7 @@ import {useStores} from "./use-stores";
 import {observer} from "mobx-react";
 import { Grommet } from 'grommet';
 import {AppContent} from "./components/AppContent";
-import FontStyles from "./assets/fonts/FontStyles";
+import './index.css'
 
 const GlobalStyles = createGlobalStyle<{ theme: typeof theme }>`
   body {
@@ -26,7 +26,6 @@ const App = observer(() => {
         themeMode={configStore.themeMode}
         full
       >
-          <FontStyles />
           <GlobalStyles />
           <AppHeader />
           <AppContent />

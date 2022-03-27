@@ -1,6 +1,8 @@
 import {deepMerge} from "grommet/utils";
 
 const palette = {
+    Gret: '#AAAAAA',
+    LightGray: '#777777',
     Grey: '#313131',
     Blue: '#356AE5',
     BlueDark: '#1F5AE2'
@@ -15,6 +17,7 @@ export const theme = {
         },
         colors: {
             background: '#F2F3F7',
+            borderBox: palette.LightGray,
             border: palette.Grey,
             modalBackground: 'white',
             secondary: '#777777'
@@ -26,6 +29,11 @@ export const theme = {
         }
     },
     button: {
+      // default: {
+      //     background: {
+      //         color: 'transparent'
+      //     }
+      // },
         primary: {
             background: {
                 color: {

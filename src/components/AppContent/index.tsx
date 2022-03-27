@@ -18,10 +18,10 @@ export const AppContent = observer(() => {
         </TabContentWrapper>
       </Tab>
       <Tab title="Assets">
-        <TabContentWrapper>Bridge1</TabContentWrapper>
+        <TabContentWrapper>Assets</TabContentWrapper>
       </Tab>
       <Tab title="Transactions">
-        <TabContentWrapper>Bridge2</TabContentWrapper>
+        <TabContentWrapper>Transactions</TabContentWrapper>
       </Tab>
     </Tabs>
   </Box>
