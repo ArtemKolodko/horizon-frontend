@@ -1,15 +1,22 @@
 import {deepMerge} from "grommet/utils";
 
 const palette = {
-    Gret: '#AAAAAA',
+    LightGrey2: '#AAAAAA',
     LightGray: '#777777',
     Grey: '#313131',
+    DarkGrey: '#292929',
     Blue: '#356AE5',
     BlueDark: '#1F5AE2'
 }
 
 export const theme = {
     global: {
+        palette,
+        focus: {
+            border: {
+                color: "transparent",
+            },
+        },
         font: {
             family: "GothamRounded",
             size: "14px",
@@ -18,9 +25,12 @@ export const theme = {
         colors: {
             background: '#F2F3F7',
             borderBox: palette.LightGray,
+            titleSecondary: palette.LightGray,
             border: palette.Grey,
             modalBackground: 'white',
-            secondary: '#777777'
+            modalBorder: palette.DarkGrey,
+            secondary: '#777777',
+            buttonBackground: palette.BlueDark
         }
     },
     text: {
@@ -75,6 +85,11 @@ export const theme = {
                 }
             }
         `,
+        }
+    },
+    layer: {
+        overlay: {
+            background: 'rgba(0, 0, 0, 0.75)'
         }
     }
 };

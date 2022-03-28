@@ -1,9 +1,9 @@
-export enum Token {
+export enum NetworkType {
   ETH = 'ETH',
   ONE = 'ONE'
 }
 
-export const TokenName = {
-  [Token.ETH]: 'Ethereum',
-  [Token.ONE]: 'Harmony',
+export const NetworkName = {
+  [NetworkType.ETH]: 'Ethereum',
+  [NetworkType.ONE]: 'Harmony',
 }
