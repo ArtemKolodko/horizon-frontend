@@ -18,8 +18,8 @@ const AccountButton = observer(() => {
       label={address}
       dropAlign={{ top: 'bottom', right: 'right' }}
       dropContent={
-          <Box pad="large" background="light-2">
-              <Button primary label={'Disconnect'} onClick={onDisconnectClicked} />
+          <Box pad="medium" background={"modalBackground"}>
+              <Button primary color={'buttonBackground'} label={'Disconnect'} onClick={onDisconnectClicked} />
           </Box>
       }
     />
@@ -61,7 +61,7 @@ const AppHeader = observer(() => {
                   <AccountButton />
                 }
                 {!walletStore.lastUsedAddress &&
-                  <Button primary label={'Connect to a wallet'} onClick={onConnectClicked} />
+                  <Button primary color={'buttonBackground'} label={'Connect to a wallet'} onClick={onConnectClicked} />
                 }
             </Box>
         </Box>

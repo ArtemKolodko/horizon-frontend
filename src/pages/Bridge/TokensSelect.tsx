@@ -97,6 +97,7 @@ const TokensSelectModal = (props: TokensModalProps) => {
 }
 
 export interface ITokensSelectProps {
+  amount: string;
   selectedOptions: NetworkType[]
   setTokensType: (tokens: NetworkType[]) => void
 }
@@ -140,7 +141,7 @@ export const TokensSelect = (props: ITokensSelectProps) => {
       </Box>
       <Box align={'center'} width={'360px'}>
         <Text color={'secondary'}>Amount</Text>
-        <Text margin={{ top: '4px' }} size={'18px'}>0.00</Text>
+        <Text margin={{ top: '4px' }} size={'18px'}>{props.amount}</Text>
         <Text margin={{ top: '8px' }} size={'12px'} color={'#1F5AE2'}>100,000 available</Text>
       </Box>
     </Box>

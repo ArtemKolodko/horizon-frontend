@@ -49,7 +49,7 @@ export const BridgePage = observer(() => {
   const [from, setFrom] = useState(NetworkType.ETH)
   const [to, setTo] = useState(NetworkType.ONE)
   const [destinationAddress, setDestinationAddress] = useState('0x72cb10c6bfa5624dd07ef608027e366bd690048f')
-  const [amount, setAmount] = useState('0')
+  const [amount, setAmount] = useState('1.123')
   const [tokensType, setTokensType] = useState([NetworkType.ONE, NetworkType.ETH])
   const [progressPercent, setProgressPercent] = useState(0)
 
@@ -82,7 +82,7 @@ export const BridgePage = observer(() => {
     return <Box direction={'column'} align={'center'}>
       <BridgeContent>
         <NetworkSelect from={from} to={to} onTokensSwitchClicked={onTokensSwitchClicked} />
-        <TokensSelect selectedOptions={tokensType} setTokensType={setTokensType} />
+        <TokensSelect amount={amount} selectedOptions={tokensType} setTokensType={setTokensType} />
         <AddressSelect address={destinationAddress} setAddress={setDestinationAddress} />
       </BridgeContent>
       <ButtonsContainer direction={'row'} height={'66px'}>
