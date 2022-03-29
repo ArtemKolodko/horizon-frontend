@@ -1,4 +1,4 @@
-import {Box, Button, Layer, Text} from 'grommet'
+import {Box, Button, Layer, Text, TextInput} from 'grommet'
 import React, {useState} from 'react'
 import {CheckIcon, EthIcon, HarmonyIcon, SettingsIcon, SwitchIcon, USDCIcon} from "../../components/Icon";
 import {NetworkName, NetworkType} from "../../types";
@@ -99,6 +99,7 @@ const TokensSelectModal = (props: TokensModalProps) => {
 export interface ITokensSelectProps {
   amount: string;
   selectedOptions: NetworkType[]
+  setAmount: (amount: string) => void
   setTokensType: (tokens: NetworkType[]) => void
 }
 
@@ -141,7 +142,14 @@ export const TokensSelect = (props: ITokensSelectProps) => {
       </Box>
       <Box align={'center'} width={'360px'}>
         <Text color={'secondary'}>Amount</Text>
-        <Text margin={{ top: '4px' }} size={'18px'}>{props.amount}</Text>
+        <Text margin={{ top: '4px' }} size={'18px'}>
+          <TextInput
+            placeholder="0"
+            value={props.amount}
+            style={{ border: 'none', textAlign: 'center' }}
+            onChange={event => props.setAmount(event.target.value)}
+          />
+        </Text>
         <Text margin={{ top: '8px' }} size={'12px'} color={'#1F5AE2'}>100,000 available</Text>
       </Box>
     </Box>

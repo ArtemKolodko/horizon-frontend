@@ -13,3 +13,13 @@ export const cutAddress = (address: string, first = 6, last = 4) => {
   }
   return `${address.substr(0, first)}...`
 }
+
+export const isAddressValid = (address: string) => {
+  if (!address || address.length != 42) {
+    return false
+  }
+  if (address.slice(0, 2) !== '0x') {
+    return false
+  }
+  return true
+}

@@ -82,7 +82,7 @@ export const BridgePage = observer(() => {
     return <Box direction={'column'} align={'center'}>
       <BridgeContent>
         <NetworkSelect from={from} to={to} onTokensSwitchClicked={onTokensSwitchClicked} />
-        <TokensSelect amount={amount} selectedOptions={tokensType} setTokensType={setTokensType} />
+        <TokensSelect amount={amount} setAmount={setAmount} selectedOptions={tokensType} setTokensType={setTokensType} />
         <AddressSelect address={destinationAddress} setAddress={setDestinationAddress} />
       </BridgeContent>
       <ButtonsContainer direction={'row'} height={'66px'}>
