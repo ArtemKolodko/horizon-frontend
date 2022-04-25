@@ -29,6 +29,7 @@ export const theme = {
             border: palette.Grey,
             modalBackground: 'white',
             modalBorder: palette.DarkGrey,
+            modalTextSecondary: palette.LightGrey2,
             secondary: '#777777',
             buttonBackground: palette.BlueDark
         }
